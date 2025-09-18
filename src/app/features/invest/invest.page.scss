@@ -1,0 +1,40 @@
+// .block {
+//   width: 100%;
+//   height: 300px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// ion-modal {
+//   --height: auto;
+// }
+/* Hide scrollbars in ion-content (both directions) */
+ion-content {
+  --overflow: hidden; /* stops Ionic's internal scrollbars */
+}
+
+/* In case native scrollbar still appears, hide it */
+ion-content::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+ion-item-option {
+    --ion-item-background: transparent;
+}
+
+.custom-toast {
+  --background: #1e293b;   /* dark slate background */
+  --color: #ffffff;        /* text color */
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* optional: align text */
+  text-align: center;
+  font-weight: 600;
+}

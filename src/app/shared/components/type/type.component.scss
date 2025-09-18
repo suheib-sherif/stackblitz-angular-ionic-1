@@ -1,0 +1,11 @@
+    ion-chip {
+      --background: transparent;   /* keep it outline */
+      --border-style: solid;
+      --border-width: 2px;
+    }
+    ion-label {
+      color: var(--color);        /* bind text to color */
+    }
+    ion-chip {
+      border-color: var(--border-color);
+    }

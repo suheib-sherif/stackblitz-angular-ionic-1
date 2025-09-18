@@ -1,0 +1,60 @@
+@if (size === 'lg') {
+<ion-card class="w-full ion-no-padding rounded-xs border border-gray-200 shadow-sm p-4 gap-4 flex flex-col">
+  <div class="flex items-center justify-between">
+    <img [src]="logo" alt="logo" class="rounded w-8 h-8" />
+    <app-type [text]="type" color="black" size="lg"></app-type>
+  </div>
+  
+  <div class="flex-1 flex flex-col justify-center">
+    <div class="text-2xl font-bold text-black">{{ price | currency:'USD' }}</div>
+    <div class="mt-1 text-lg text-gray-900">{{ ticker }} • {{ name }}</div>
+  </div>
+  
+  <hr class="border-gray-200" />
+  
+  <div class="flex items-center gap-6 text-sm text-gray-600">
+    @for (m of metrics; track m) {
+    <div class="flex items-center gap-1">
+      <img [src]="m.icon" class="w-4 h-4">
+      <span>{{ m.value }}</span>
+    </div>
+    }
+  </div>
+</ion-card>
+}
+
+@if (size === 'md') {
+<ion-card class="w-[202px] rounded-xs border border-gray-200 shadow-sm p-[16px]">
+  <div class="flex items-center justify-between h-12">
+    <div class="flex items-center justify-between">
+      <img [src]="logo" alt="logo" class="rounded w-6 h-6" />
+      <div class="text-lg font-bold text-black ml-1">{{ ticker }}</div>
+    </div>
+    <app-type [text]="type" color="black"></app-type>
+  </div>
+  <div class="mt-1 text-xl font-bold text-black">{{ price | currency:'USD' }}</div>
+  <div class="mt-1 text-sm text-gray-500">{{ ticker }} • {{ name }}</div>
+
+</ion-card>
+}
+
+@if (size === 'sm') {
+<div
+  class="w-[126px] h-[149px] rounded-md border border-gray-200 shadow-sm
+         pt-[16px] pb-[16px] pl-[14px] pr-[14px]">
+
+  <div class="flex items-start justify-between">
+    <img [src]="logo" alt="logo" class="rounded w-8 h-8" />
+    <app-type [text]="type" color="black" size="sm"></app-type> 
+  </div>
+
+  <div class="mt-3">
+    <div class="text-[14px] font-semibold text-gray-700 leading-none">{{ ticker }}</div>
+    <div class="mt-0.5 text-[12px] text-gray-500 leading-none">{{ name }}</div>
+  </div>
+
+  <div class="mt-3 text-[16px] font-bold text-black">
+    {{ price | currency:'USD' }}
+  </div>
+</div>
+}

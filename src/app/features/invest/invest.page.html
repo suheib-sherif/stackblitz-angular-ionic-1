@@ -1,0 +1,72 @@
+<ion-content>
+  <div class="p-4 space-y-8 max-w-2xl mx-auto">
+    <h2 (click)="onDeleteCompleted('XYZ')" class="text-2xl font-semibold">Dashboard</h2>
+ 
+    <section>
+      <div class="text-xs text-black font-medium">Total equity</div>
+      <div class="text-3xl font-extrabold decoration-2 pt-2">
+        {{ equity$ | async | currency:'USD' }}
+      </div>
+    </section>
+
+    <!-- Holdings -->
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold">Holdings</h2>
+
+      <div class="w-full">
+        <div class="flex items-center justify-between">
+          <div class="min-w-0">Stock</div>
+          <div class="flex items-center gap-3 shrink-0 justify-between">
+            <div class="text-base text-grey">Price</div>
+            <div class="text-base text-grey">Change</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white" class="ion-no-padding">
+        @if (holdings$ | async; as holds) {
+        @for (item of holds; track item.symbol) {
+
+        <ion-item-sliding class="ion-no-padding">
+          <ion-item lines="none" class="ion-no-padding" style="--inner-padding-end: 0 !important;">
+            <ion-content>
+              <app-instrument mode="owned" [ticker]="item.symbol" [price]="item.avgPrice" [delta]="item.changePrice"
+                [quantity]="item.quantity" currencyCode="USD">
+              </app-instrument>
+            </ion-content>
+          </ion-item>
+          <ion-item-options side="end" class="max-h-[32px]">
+            <ion-item-option color="white" class="ion-no-padding" style="--inner-padding-end: 0 !important;" (click)="onDelete(item.symbol)">
+               <img src="assets/icon/card.svg" style="filter: invert(12%) sepia(76%) saturate(4558%) hue-rotate(1deg) brightness(98%) contrast(109%);" class="w-8">
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+
+        }
+        } @else {
+        <div class="p-4 text-sm text-gray-500">Loading…</div>
+        }
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold">Trending stocks</h2>
+
+      <div class="overflow-x-auto">
+        <div class="inline-flex">
+          @if (trending$ | async; as items) {
+          @for (item of items; track item.symbol) {
+          <app-card class="shrink-0 p-[8px]" size="sm" [logo]="item.logo" [ticker]="item.symbol" [name]="item.name"
+            [price]="item.price" [type]="item.type" (click)="openModal(item.symbol, item.price)">
+          </app-card>
+          }
+          } @else {
+          <div class="p-4 text-sm text-gray-500">Loading…</div>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>
+
+<order-form #buyModal></order-form>

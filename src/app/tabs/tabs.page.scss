@@ -1,0 +1,14 @@
+
+ion-tab-bar {
+  --color-selected: #000; /* active = black */
+}
+
+ion-tab-button svg.tab-icon {
+  width: 24px;
+  height: 24px;
+  fill: #666; /* default inactive */
+}
+
+ion-tab-button.tab-selected svg.tab-icon {
+  fill: #000; /* active */
+}

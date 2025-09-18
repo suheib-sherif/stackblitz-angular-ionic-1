@@ -1,0 +1,95 @@
+<!-- <ion-content>
+  <div class="p-4 space-y-8 max-w-2xl mx-auto">
+    <ion-searchbar class="custom-searchbar" show-cancel-button="focus" placeholder="Show on Focus"
+      (ionFocus)="isFocused = true" (ionBlur)="isFocused = false" [ngClass]="{ 'focused': isFocused }"></ion-searchbar>
+
+  </div>
+</ion-content> -->
+<!-- 
+<ion-content>
+    <ion-searchbar show-cancel-button="focus" placeholder="Show on Focus"></ion-searchbar>
+
+<ion-searchbar
+  class="stock-searchbar"
+  placeholder="Search stocks"
+  show-cancel-button="focus"
+  (ionFocus)="isFocused = true" (ionBlur)="isFocused = false" 
+  >
+</ion-searchbar>
+@if (isFocused) {
+<ion-list>
+  @for (result of results; track result) {
+  <ion-item>
+    <ion-label>{{ result }}</ion-label>
+  </ion-item>
+  }
+</ion-list>
+}
+@else {
+
+}
+
+</ion-content> -->
+
+<ion-content>
+  <div class="p-4 space-y-8 max-w-2xl mx-auto">
+    <ion-searchbar class="stock-searchbar" placeholder="Search stocks" show-cancel-button="focus" mode="ios"
+      (ionFocus)="isFocused = true" (ionBlur)="onBlurDeferred()"
+      [debounce]="250" (ionInput)="handleInput($event)"
+      >
+    </ion-searchbar>
+
+    @if(isFocused){
+        @if (list$ | async; as results) {
+        @for (item of results; track item.symbol) {
+           <app-instrument mode="not-owned" [description]="item.name" [ticker]="item.symbol" [price]="item.price" [delta]="item.changePct"
+                 currencyCode="USD"
+                 (click)="openModal(item.symbol, item.price)"
+                 >
+              </app-instrument>
+        }
+        } @else {
+        <div class="p-4 text-sm text-gray-500">Loading…</div>
+        }
+    }
+    @else {
+       <!-- Holdings -->
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold">Recently searched</h2>
+
+      <div class="bg-white" class="ion-no-padding">
+        @if (history$ | async; as holds) {
+        @for (item of holds; track item.symbol) {
+           <app-instrument mode="not-owned" [description]="item.description" [ticker]="item.symbol" [price]="item.avgPrice" [delta]="item.changePrice"
+                [quantity]="item.quantity" currencyCode="USD">
+              </app-instrument>
+        }
+        } @else {
+        <div class="p-4 text-sm text-gray-500">Loading…</div>
+        }
+      </div>
+    </section>
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold">Top 3 volume stock</h2>
+
+      <div class="overflow-x-auto">
+        <div class="inline-flex gap-4 pb-2">
+          @if (topVolume$ | async; as items) {
+          @for (item of items; track item.symbol) {
+          <app-card class="shrink-0 w-[342px]" size="lg" [logo]="item.logo" [ticker]="item.symbol" [name]="item.name"
+            [price]="item.price" [type]="item.type" [metrics]="item.metrics">
+          </app-card>
+          }
+          } @else {
+          <div class="p-4 text-sm text-gray-500">Loading…</div>
+          }
+        </div>
+      </div>
+    </section>
+    }
+
+
+  </div>
+</ion-content>
+
+<order-form #buyModal></order-form>
