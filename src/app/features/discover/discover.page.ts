@@ -1,12 +1,11 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, IonSearchbar, IonList, IonItem, IonLabel, IonItemSliding, IonItemOptions, IonItemOption } from '@ionic/angular/standalone';
+import { IonContent, IonSearchbar } from '@ionic/angular/standalone';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { InstrumentComponent } from 'src/app/shared/components/instrument/instrument.component';
-import { NgClass } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { trash } from 'ionicons/icons';
 import { DataService, CardViewModel } from 'src/app/core/data.service';
-import { AsyncPipe, CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { firstValueFrom, Observable } from 'rxjs';
 import { HoldingsService } from 'src/app/core/holdings.service';
 import { OrderFormComponent } from '../order-form/order-form.component';
@@ -22,11 +21,6 @@ export class DiscoverPage {
 
   history$ = this.holdingsSvc.history$;
 
-  // handleInput(event: Event) {
-  //   const target = event.target as HTMLIonSearchbarElement;
-  //   const query = target.value?.toLowerCase() || '';
-  //   this.results = this.data.filter((d) => d.toLowerCase().includes(query));
-  // }
   private data = inject(DataService);
 
   searchClass = '';
@@ -41,7 +35,6 @@ export class DiscoverPage {
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
-    //this.results = this.data.filter((d) => d.toLowerCase().includes(query));
     this.list$ = this.data.searchInstruments$(query);
   }
 
@@ -52,7 +45,7 @@ export class DiscoverPage {
   }
 
   onBlurDeferred() {
-    setTimeout(() => this.isFocused = false, 0);
+    setTimeout(() => this.isFocused = false, 50);
   }
 
   trending$ = this.data.trending$(3);

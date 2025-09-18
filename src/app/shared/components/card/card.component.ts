@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from '@ionic/angular/standalone';
+import { IonCard } from '@ionic/angular/standalone';
 import { TypeComponent } from '../type/type.component';
 import { CurrencyPipe } from '@angular/common'; 
-import { NgClass } from '@angular/common';  
 
 @Component({
   selector: 'app-card',

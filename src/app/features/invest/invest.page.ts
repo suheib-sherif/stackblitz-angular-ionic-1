@@ -1,12 +1,12 @@
 import { OrderFormComponent } from '../../features/order-form/order-form.component';
 
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { IonContent, ToastController, IonHeader, IonTitle, IonToolbar, IonButton, IonSearchbar, IonItem, IonAvatar, IonImg, IonLabel, IonModal, IonList, ModalController, IonItemOptions, IonItemSliding, IonItemOption, IonIcon } from '@ionic/angular/standalone';
-import { AsyncPipe, CurrencyPipe, DecimalPipe, NgIf } from '@angular/common';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { IonContent, ToastController, IonItem, IonItemOptions, IonItemSliding, IonItemOption } from '@ionic/angular/standalone';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { HoldingsService } from '../../core/holdings.service';
 
 import { InstrumentComponent } from '../../shared/components/instrument/instrument.component';
-import { CardComponent } from '../../shared/components/card/card.component'; // your card w/ size input (lg|md|sm)
+import { CardComponent } from '../../shared/components/card/card.component'; 
 import { DataService } from 'src/app/core/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';

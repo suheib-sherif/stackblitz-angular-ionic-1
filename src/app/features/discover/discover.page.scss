@@ -1,35 +1,7 @@
-// ion-searchbar.custom-searchbar { --background: var(--ion-color-light, #f4f4f5); }
-// ion-searchbar.custom-searchbar.focused { --background: #fff; }
-
-// ion-searchbar.stock-searchbar {
-//   --background: #f9fafb;            /* default bg */
-//   --cancel-button-color: #2563eb;   /* optional */
-//   outline: none;                     /* kill host ring */
-// }
-
-// ion-searchbar.stock-searchbar::part(container) {
-//   border-radius: 9999px;             /* pill */
-//   border: 1.5px solid transparent;   /* no outline by default */
-//   transition: border-color .2s, box-shadow .2s, background-color .2s;
-// }
-
-// ion-searchbar.stock-searchbar:focus-within::part(container) {
-//   background: #fff;
-//   border-color: black;             /* outline color */
-//   box-shadow: 0 0 0 3px rgba(37, 99, 235, .25); /* soft glow */
-// }
-
-// ion-searchbar.stock-searchbar:focus-within {
-//   outline: none;
-//   box-shadow: none;
-// }
-
-
-/* Scoped components require higher specificity to customize */
 ion-searchbar.stock-searchbar .searchbar-cancel-button {
-  font-size: 14px;         /* set your size */
-  font-weight: 500;        /* optional tweak */
-  color: #000;          /* optional color */
+  font-size: 14px;       
+  font-weight: 500;       
+  color: #000;         
 }
 
 ion-searchbar.button{
@@ -37,7 +9,7 @@ ion-searchbar.button{
 }
 
 ion-searchbar.-webkit-search-cancel-button{
- font-size: 14px;         /* set your size */
+ font-size: 14px;        
   font-weight: 500; 
 }
 

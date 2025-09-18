@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, NgZone, Output } from '@angular/core';
 import { Component, Input, ViewChild } from '@angular/core';
 import {
   IonModal, ToastController
