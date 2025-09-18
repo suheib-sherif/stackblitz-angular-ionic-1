@@ -1,7 +1,6 @@
 <ion-content>
   <div class="p-4 space-y-8 max-w-2xl mx-auto">
     <ion-searchbar class="stock-searchbar" placeholder="Search stocks" show-cancel-button="focus" mode="ios"
-      (ionFocus)="isFocused = true" (ionBlur)="onBlurDeferred()"
       [debounce]="250" (ionInput)="handleInput($event)"
       >
     </ion-searchbar>

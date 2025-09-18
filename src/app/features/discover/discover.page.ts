@@ -35,6 +35,11 @@ export class DiscoverPage {
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
+    if (query == '') {
+      this.isFocused = false;
+      return;
+    }
+    this.isFocused = true;
     this.list$ = this.data.searchInstruments$(query);
   }
 

@@ -90,6 +90,8 @@ export class OrderFormComponent {
     this.holdingsSvc.add({ symbol, quantity: qty, avgPrice: price, changePrice: this.priceChange, description: '' });
     setTimeout(() => {
       this.presentToast(symbol);
+     this.swipeProgress = 0;
+     this.swipePercentage = 0;
       this.modal.dismiss();
     }, 400);
   }

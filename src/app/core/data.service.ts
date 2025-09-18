@@ -60,7 +60,6 @@ export class DataService {
     catchError(() => of([] as InstrumentPricing[]))
   );
 
-  /** Joined + projected instruments */
   instruments$ = this.details$.pipe(
     combineLatestWith(this.pricing$),
     map(([details, pricing]) => {
@@ -99,10 +98,8 @@ export class DataService {
 
         const changePct = open ? ((close - open) / open) * 100 : 0;
         
-        // Build metrics array
         const metrics: CardMetric[] = [];
         
-        // Market Cap
         if (d.marketCap && d.marketCap > 0) {
           metrics.push({
             icon: 'assets/icon/circle-dollar.svg',
@@ -110,7 +107,6 @@ export class DataService {
           });
         }
         
-        // Volume
         if (d.volume && d.volume > 0) {
           metrics.push({
             icon: 'assets/icon/target.svg',
@@ -118,7 +114,6 @@ export class DataService {
           });
         }
         
-        // Price Range (High - Low)
         if (high > 0 && low > 0) {
           metrics.push({
             icon: 'assets/icon/square-dollar.svg',

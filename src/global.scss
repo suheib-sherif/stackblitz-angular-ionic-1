@@ -57,3 +57,11 @@ ion-toast.custom-toast::part(message) {
   width: 100%;            /* span full width for centering */
   display: block;
 }
+
+:root {
+  --ion-font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
+}
+
+* {
+  font-family: var(--ion-font-family);
+}

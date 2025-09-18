@@ -16,12 +16,10 @@ export class HoldingsService {
   equity$ = this._equity$.asObservable();
   history$ = this._history$.asObservable();
 
-  /** Add or upsert a holding */
   add(h: Holding) {
     const list = this._holdings$.value.slice();
     const i = list.findIndex(x => x.symbol === h.symbol);
     if (i >= 0) {
-      // example: average price, accumulate qty (tweak logic to your needs)
       const prev = list[i];
       const newQty = prev.quantity + h.quantity;
       const newAvg = (prev.avgPrice * prev.quantity + h.avgPrice * h.quantity) / newQty;
@@ -35,14 +33,21 @@ export class HoldingsService {
   }
 
     addHistory(h: Holding) {
-    const list = this._holdings$.value.slice();
+    const list = this._history$.value.slice();
     const i = list.findIndex(x => x.symbol === h.symbol);
-    if (i < 0) {
-        list.push(h);
-    } 
+
+    if (i >= 0) {
+        list.splice(i, 1);
+    }
+
+    list.unshift(h);
+    
+    if (list.length > 3) {
+        list.splice(3);
+    }
+    
     this._history$.next(list);
     this.save(list);
-    //this.calculateEquity();
   }
 
   remove(symbol: string) {
@@ -54,7 +59,9 @@ export class HoldingsService {
 
   clear() {
     this._holdings$.next([]);
+    this._history$.next([]);
     localStorage.removeItem(this.KEY);
+    localStorage.removeItem(this.HISTORY);
   }
 
   calculateEquity() {
@@ -63,7 +70,6 @@ export class HoldingsService {
     list.forEach(share => {
         equity += share.avgPrice*share.quantity;
     });
-    console.log(Math.round(equity));
     
     this._equity$.next(Math.round(equity));
   }
