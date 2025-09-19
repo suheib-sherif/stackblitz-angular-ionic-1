@@ -11,7 +11,7 @@ Ionic Tabs Layout (Invest & Discover)
 
 CardComponent – three size variants (lg, md, sm)
 InstrumentComponent – owned / not-owned instruments with aligned layout
-TypeChipComponent – stock/ETF chip with dynamic color
+TypeComponent – stock/ETF chip with dynamic color
 OrderFormComponent – sheet modal with swipe-to-buy interaction
 
 ## Pages
@@ -55,7 +55,7 @@ Mode = owned → shows quantity, price, and change chip
 Mode = not-owned → shows description and price only
 Designed with display: contents so its parts align with column headers
 
-## TypeChipComponent
+## TypeComponent
 
 Inputs: text, color, size
 Tailwind-based chip replacement for <ion-chip>
@@ -67,3 +67,9 @@ Props: ticker, price, amount, shares
 Swipe-to-buy implemented with pointer events
 Emits event when swipe is completed
 Displayed inside <ion-modal> with bottom sheet styling
+
+# 🚧 TODO:
+- Improve Swipe to buy animation -> limited by time and exploring options
+- Improve dala layer -> reorganise services
+- Use EventEmmiter to trigger events to improve animations to match Figma ( toast / Modal close / adding new row / updating holdings ) currently happen at the same time.
+- Personal preference -> use unified styling using tailwind for example, to build a robust component library. Ionic components add a layer of styling that doesn't always follow the intended design but I fall into the trap of making my components on top of closest ionic component. So I'd spend more time cleaning up code for unified styling.
