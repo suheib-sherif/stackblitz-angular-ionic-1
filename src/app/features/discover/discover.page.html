@@ -1,35 +1,38 @@
 <ion-content>
   <div class="p-4 space-y-8 max-w-2xl mx-auto">
     <ion-searchbar class="stock-searchbar" placeholder="Search stocks" show-cancel-button="focus" mode="ios"
-      [debounce]="250" (ionInput)="handleInput($event)"
-      >
+      [debounce]="250" (ionInput)="handleInput($event)">
     </ion-searchbar>
 
     @if(isFocused){
-        @if (list$ | async; as results) {
-        @for (item of results; track item.symbol) {
-           <app-instrument mode="not-owned" [description]="item.name" [ticker]="item.symbol" [price]="item.price" [delta]="item.changePct"
-                 currencyCode="USD"
-                 (click)="openModal(item.symbol, item.price)"
-                 >
-              </app-instrument>
-        }
-        } @else {
-        <div class="p-4 text-sm text-gray-500">Loading…</div>
-        }
+    @if (list$ | async; as results) {
+    @for (item of results; track item.symbol) {
+    <app-instrument mode="not-owned" [description]="item.name" [ticker]="item.symbol" [price]="item.price"
+      [delta]="item.changePct" currencyCode="USD" (click)="openModal(item.symbol, item.price)">
+    </app-instrument>
+    }
+    } @else {
+    <div class="p-4 text-sm text-gray-500">Loading…</div>
+    }
     }
     @else {
-       <!-- Holdings -->
+    <!-- Holdings -->
     <section class="space-y-3">
       <h2 class="text-xl font-semibold">Recently searched</h2>
 
       <div class="bg-white" class="ion-no-padding">
         @if (history$ | async; as holds) {
-        @for (item of holds; track item.symbol) {
-           <app-instrument mode="not-owned" [description]="item.description" [ticker]="item.symbol" [price]="item.avgPrice" [delta]="item.changePrice"
-                [quantity]="item.quantity" currencyCode="USD">
-              </app-instrument>
-        }
+          @if (holds.length > 0){
+            @for (item of holds; track item.symbol) {
+            <app-instrument mode="not-owned" [description]="item.description" [ticker]="item.symbol" [price]="item.avgPrice"
+              [delta]="item.changePrice" [quantity]="item.quantity" currencyCode="USD">
+            </app-instrument>
+            }
+          }
+          @else {
+            <div class="p-4 text-sm text-gray-500">No recent search</div>
+          }
+
         } @else {
         <div class="p-4 text-sm text-gray-500">Loading…</div>
         }

@@ -47,7 +47,7 @@ export class HoldingsService {
     }
     
     this._history$.next(list);
-    this.save(list);
+    this.saveHistory(list);
   }
 
   remove(symbol: string) {
@@ -60,6 +60,7 @@ export class HoldingsService {
   clear() {
     this._holdings$.next([]);
     this._history$.next([]);
+    this.calculateEquity();
     localStorage.removeItem(this.KEY);
     localStorage.removeItem(this.HISTORY);
   }

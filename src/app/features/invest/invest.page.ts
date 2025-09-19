@@ -38,16 +38,12 @@ type Trending = {
 })
 export class InvestPage implements OnInit {
   @ViewChild('buyModal') orderModal!: OrderFormComponent;
-  holdings$ = this.holdingsSvc.holdings$;
+
+  constructor(private dataSvc: DataService, private holdingsSvc: HoldingsService, private toastController: ToastController) { }
+
+  trending$ = this.dataSvc.trending$(12);
   equity$ = this.holdingsSvc.equity$;
-
-  constructor(private holdingsSvc: HoldingsService, private toastController: ToastController) { }
-
-  private data = inject(DataService);
-  trending$ = this.data.trending$(12);
-
-  totalEquity$ = this.holdings$.pipe(
-  );
+  holdings$ = this.holdingsSvc.holdings$;
 
   ngOnInit() {
     this.holdingsSvc.calculateEquity();
@@ -65,14 +61,8 @@ export class InvestPage implements OnInit {
   }
 
   async openModal(ticker: string, price: number) {
-    let share = await firstValueFrom(this.data.bySymbols$([ticker]));
+    let share = await firstValueFrom(this.dataSvc.bySymbols$([ticker]));
     this.orderModal.open({ ticker, price, amount: 10, priceChange: share[0].changePct });
-  }
-
-  async onSwapCompleted(symbol: string, qty: number, price: number) {
-    let share = await firstValueFrom(this.data.bySymbols$([symbol]));
-    this.presentToast(symbol);
-    this.holdingsSvc.add({ symbol, quantity: qty, avgPrice: price, changePrice: share[0].changePct, description: 'test' });
   }
 
   async onDeleteCompleted(symbol: string) {

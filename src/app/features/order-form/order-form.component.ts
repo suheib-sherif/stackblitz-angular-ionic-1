@@ -23,15 +23,11 @@ export class OrderFormComponent {
   @Input() stockPrice: number = 109.80;
   @Input() priceType: string = 'At market';
   @Input() priceChange: number = 10.00;
+  @Output() purchaseComplete = new EventEmitter<any>();
 
   buyingShares: number = 0;
 
-  @Output() purchaseComplete = new EventEmitter<any>();
-
-
   @ViewChild('modal', { static: true }) modal!: IonModal;
-
-
   @ViewChild('swipeContainer', { read: ElementRef }) swipeContainer?: ElementRef<HTMLDivElement>;
   @ViewChild('swipeButton', { read: ElementRef }) swipeButton?: ElementRef<HTMLDivElement>;
 
@@ -93,7 +89,7 @@ export class OrderFormComponent {
      this.swipeProgress = 0;
      this.swipePercentage = 0;
       this.modal.dismiss();
-    }, 400);
+    }, 500);
   }
 
 
@@ -143,7 +139,6 @@ export class OrderFormComponent {
         if (this.swipePercentage >= this._thresholdPct) {
           this.swipeProgress = this._max;
           this.swipePercentage = 100;
-          console.log('swap completed');
           this.onSwapCompleted(this.stockSymbol, this.buyingShares, this.stockPrice);
         } else {
           this.swipeProgress = 0;

@@ -202,7 +202,7 @@ export class DataService {
     return this.cardViewModels$.pipe(
       map(list =>
         list
-          .filter(x => x.price && x.logo)          // basic sanity
+          .filter(x => x.price && x.logo)         
           .sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct))
           .slice(0, limit)
       )
