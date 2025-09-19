@@ -5,7 +5,7 @@
     <section>
       <div class="text-xs text-black font-medium">Total equity</div>
       <div class="text-3xl font-extrabold decoration-2 pt-2">
-        {{ equity$ | async | currency:'USD' }}
+        {{ equity$ | async | currency:'USD':'symbol':'1.0-0' }}
       </div>
     </section>
     <section class="space-y-3">

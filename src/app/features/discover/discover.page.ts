@@ -2,8 +2,6 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { IonContent, IonSearchbar } from '@ionic/angular/standalone';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { InstrumentComponent } from 'src/app/shared/components/instrument/instrument.component';
-import { addIcons } from 'ionicons';
-import { trash } from 'ionicons/icons';
 import { DataService, CardViewModel } from 'src/app/core/data.service';
 import { AsyncPipe } from '@angular/common';
 import { firstValueFrom, Observable } from 'rxjs';
@@ -19,18 +17,13 @@ import { OrderFormComponent } from '../order-form/order-form.component';
 export class DiscoverPage {
   @ViewChild('buyModal') orderModal!: OrderFormComponent;
 
-  history$ = this.holdingsSvc.history$;
-
-  private data = inject(DataService);
-
   searchClass = '';
   isFocused = false;
-  dataService: any;
-  list$ = this.data.searchInstruments$('');
+  list$ = this.dataSvc.searchInstruments$('');
+  history$ = this.holdingsSvc.history$;
+  topVolume$: Observable<CardViewModel[]> = this.dataSvc.topVolume$(3);
 
-  constructor(private holdingsSvc: HoldingsService) {
-    addIcons({ trash });
-  }
+  constructor(private holdingsSvc: HoldingsService, private dataSvc: DataService) {}
 
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
@@ -40,11 +33,11 @@ export class DiscoverPage {
       return;
     }
     this.isFocused = true;
-    this.list$ = this.data.searchInstruments$(query);
+    this.list$ = this.dataSvc.searchInstruments$(query);
   }
 
   async openModal(ticker: string, price: number) {
-    let share = await firstValueFrom(this.data.bySymbols$([ticker]));
+    let share = await firstValueFrom(this.dataSvc.bySymbols$([ticker]));
     this.orderModal.open({ ticker, price, amount: 10, priceChange: share[0].changePct });
     this.holdingsSvc.addHistory({ symbol: share[0].symbol, quantity: 0, avgPrice: share[0].price, changePrice: share[0].changePct, description: share[0].name });
   }
@@ -53,8 +46,5 @@ export class DiscoverPage {
     setTimeout(() => this.isFocused = false, 50);
   }
 
-  trending$ = this.data.trending$(3);
-
-  topVolume$: Observable<CardViewModel[]> = this.data.topVolume$(3);
 
 }

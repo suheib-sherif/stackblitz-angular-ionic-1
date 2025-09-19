@@ -33,21 +33,21 @@ export class HoldingsService {
   }
 
     addHistory(h: Holding) {
-    const list = this._history$.value.slice();
-    const i = list.findIndex(x => x.symbol === h.symbol);
+    const historyList = this._history$.value.slice();
+    const i = historyList.findIndex(x => x.symbol === h.symbol);
 
     if (i >= 0) {
-        list.splice(i, 1);
+        historyList.splice(i, 1);
     }
 
-    list.unshift(h);
+    historyList.unshift(h);
     
-    if (list.length > 3) {
-        list.splice(3);
+    if (historyList.length > 3) {
+        historyList.splice(3);
     }
     
-    this._history$.next(list);
-    this.saveHistory(list);
+    this._history$.next(historyList);
+    this.saveHistory(historyList);
   }
 
   remove(symbol: string) {
